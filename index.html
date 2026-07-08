@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лист до Діани 💔</title>
+  <style>
+    /* Загальний скидання та шрифт */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #ffe8ec 0%, #ffd9e0 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+      padding: 20px;
+      margin: 0;
+      /* Анімований фон — плавні хвилі */
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Анімовані бульбашки/хвилі на фоні (ніжний ефект) */
+    .bg-bubbles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 182, 193, 0.15);
+      animation: floatUp 18s infinite ease-in-out;
+      box-shadow: 0 0 20px rgba(255, 105, 135, 0.1);
+    }
+
+    .bubble:nth-child(1) {
+      width: 180px;
+      height: 180px;
+      left: 5%;
+      animation-duration: 22s;
+      animation-delay: 0s;
+      background: rgba(255, 140, 170, 0.08);
+    }
+    .bubble:nth-child(2) {
+      width: 260px;
+      height: 260px;
+      right: 0%;
+      top: 20%;
+      animation-duration: 26s;
+      animation-delay: 2s;
+      background: rgba(255, 120, 160, 0.06);
+    }
+    .bubble:nth-child(3) {
+      width: 140px;
+      height: 140px;
+      left: 20%;
+      bottom: 10%;
+      animation-duration: 20s;
+      animation-delay: 4s;
+      background: rgba(255, 200, 210, 0.12);
+    }
+    .bubble:nth-child(4) {
+      width: 300px;
+      height: 300px;
+      right: 10%;
+      bottom: -5%;
+      animation-duration: 28s;
+      animation-delay: 1s;
+      background: rgba(255, 160, 180, 0.05);
+    }
+    .bubble:nth-child(5) {
+      width: 100px;
+      height: 100px;
+      left: 60%;
+      top: 5%;
+      animation-duration: 16s;
+      animation-delay: 3s;
+      background: rgba(255, 220, 225, 0.2);
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1) rotate(0deg);
+        opacity: 0.3;
+      }
+      50% {
+        opacity: 0.7;
+        transform: translateY(-120px) scale(1.1) rotate(8deg);
+      }
+      100% {
+        transform: translateY(-280px) scale(0.9) rotate(-5deg);
+        opacity: 0.1;
+      }
+    }
+
+    /* Контейнер картки – скло, ніжний рожевий */
+    .letter-card {
+      position: relative;
+      z-index: 10;
+      max-width: 820px;
+      width: 100%;
+      max-height: 90vh;
+      background: rgba(255, 240, 243, 0.7);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 48px 48px 32px 32px;
+      box-shadow: 0 20px 60px rgba(200, 80, 110, 0.15), 0 0 0 1px rgba(255, 200, 210, 0.3);
+      padding: 28px 20px 20px 20px;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 220, 230, 0.5);
+    }
+
+    /* Заголовок з декорацією */
+    .letter-header {
+      text-align: center;
+      margin-bottom: 18px;
+      padding-bottom: 8px;
+      border-bottom: 2px dashed rgba(255, 130, 160, 0.3);
+    }
+
+    .letter-header h2 {
+      font-weight: 300;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      color: #b34b6a;
+      text-shadow: 0 2px 6px rgba(255, 150, 180, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .letter-header h2 span {
+      background: rgba(255, 140, 170, 0.15);
+      padding: 4px 14px;
+      border-radius: 60px;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #a54a66;
+    }
+
+    /* Обгортка зі скролом */
+    .scroll-wrapper {
+      overflow-y: auto;
+      max-height: 70vh;
+      padding-right: 12px;
+      padding-left: 4px;
+      margin-top: 6px;
+      scroll-behavior: smooth;
+      transition: all 0.2s;
+    }
+
+    /* Стилізація скролу */
+    .scroll-wrapper::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar-track {
+      background: rgba(255, 200, 215, 0.2);
+      border-radius: 20px;
+      margin-block: 10px;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar-thumb {
+      background: rgba(200, 100, 130, 0.4);
+      border-radius: 20px;
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(255, 200, 215, 0.3);
+    }
+
+    .scroll-wrapper::-webkit-scrollbar-thumb:hover {
+      background: rgba(190, 80, 110, 0.6);
+    }
+
+    /* Стиль тексту – ніжний, чіткий */
+    .message-content {
+      font-size: 1.08rem;
+      line-height: 1.75;
+      color: #3e2c33;
+      font-weight: 400;
+      padding: 6px 4px 12px 4px;
+      font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+      letter-spacing: 0.02em;
+      word-break: break-word;
+    }
+
+    .message-content p {
+      margin-bottom: 1.35rem;
+      padding-left: 6px;
+      padding-right: 6px;
+      transition: all 0.2s;
+      border-left: 2px solid transparent;
+      padding-left: 14px;
+      border-image: linear-gradient(180deg, rgba(255, 130, 170, 0.1), rgba(255, 180, 200, 0.05)) 1;
+    }
+
+    .message-content p:last-of-type {
+      margin-bottom: 0.5rem;
+    }
+
+    /* акцент на іменах */
+    .highlight-name {
+      color: #b34b6a;
+      font-weight: 500;
+      background: linear-gradient(135deg, rgba(255, 150, 180, 0.2), rgba(255, 200, 215, 0.1));
+      padding: 0 6px;
+      border-radius: 20px;
+      display: inline-block;
+      box-shadow: 0 1px 4px rgba(255, 100, 140, 0.1);
+    }
+
+    /* анімація появи тексту (легка) */
+    .fade-in {
+      animation: fadeUp 0.8s ease-out both;
+    }
+
+    @keyframes fadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Декоративний нижній колонтитул */
+    .letter-footer {
+      margin-top: 16px;
+      padding-top: 12px;
+      text-align: right;
+      font-size: 0.9rem;
+      color: #a55a74;
+      border-top: 1px solid rgba(255, 150, 175, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .letter-footer small {
+      opacity: 0.7;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    .heart-pulse {
+      display: inline-block;
+      animation: pulseHeart 2s infinite;
+      font-size: 1.2rem;
+    }
+
+    @keyframes pulseHeart {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    /* Адаптив */
+    @media (max-width: 550px) {
+      .letter-card {
+        padding: 18px 12px 16px 12px;
+        border-radius: 32px;
+      }
+      .message-content {
+        font-size: 0.98rem;
+        line-height: 1.65;
+      }
+      .letter-header h2 {
+        font-size: 1.1rem;
+        flex-wrap: wrap;
+      }
+      .scroll-wrapper {
+        max-height: 74vh;
+        padding-right: 6px;
+      }
+      .message-content p {
+        padding-left: 8px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .message-content {
+        font-size: 0.92rem;
+      }
+    }
+
+    /* Ефект мерехтіння для додаткової атмосфери */
+    .glow-sparkle {
+      position: relative;
+    }
+
+    .glow-sparkle::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 40%, rgba(255, 200, 220, 0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Декоративні бульбашки на фоні -->
+  <div class="bg-bubbles">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
+  <!-- Головна картка листа -->
+  <div class="letter-card glow-sparkle">
+    <div class="letter-header">
+      <h2>
+        <span>💌</span> 
+        <span>Лист до Діани</span>
+        <span>🕊️</span>
+      </h2>
+    </div>
+
+    <!-- Скрол-контейнер з текстом -->
+    <div class="scroll-wrapper" id="scrollLetter">
+      <div class="message-content fade-in">
+        <p><span class="highlight-name">Діано</span>, ти в порядку? Я не розумію, чому ти так робиш. Вночі 6 липня, коли я був трохи в стресі, я був стурбований, тому що ти вважала мене брехуном, і найбільше болить те, що ти сказала: «<span class="highlight-name">Аяз</span>, я не довіряю тобі навіть на секунду». Подумай, ми вже стільки днів разом, ми говоримо один з одним щодня, розповідаємо один одному про своє життя, і після всього цього ти кажеш, що не довіряєш мені навіть на секунду. Може, для тебе це все легко сказати, але мені тепер здається, що насправді ти не довіряєш мені. І взагалі, чому ти повинна довіряти мені, знаючи, що я брехун. <span class="highlight-name">Діано</span>, скажи сама, чи повинен я доводити свою правдивість, тобто доводити, що я чесний, надаючи тобі доказ кожної своєї фрази чи фото. Щоб ти не вважала мене брехуном і довіряла мені. І ця умова дуже складна. Я не можу так робити. Подумай, чи можеш ти надавати доказ кожної своєї фрази? Ні, тому що ніхто так не робить, і це дуже складно, тобто перед тим, як щось сказати тобі, я повинен надати доказ, і тільки після цього ти повіриш, що я кажу правду.</p>
+
+        <p>Тієї ночі, коли я був сердитий на себе, я сказав тобі: «На добраніч, <span class="highlight-name">Діано</span>. Якщо хочеш, ми обов’язково поговоримо вранці». Після цього ти не побажала мені на добраніч, і вранці протягом усього дня не написала жодного повідомлення, хоча ти була активна в Instagram. Я не отримав від тебе жодного повідомлення. Мені здається, що ти, можливо, взагалі не хочеш зі мною говорити. Добре, це твоє бажання, якщо ти чітко скажеш: «<span class="highlight-name">Аяз</span>, я більше не хочу з тобою говорити», я обіцяю, що не буду тебе турбувати. Принаймні стільки ти можеш мені довіряти. Якщо б ти хотіла поговорити, ти могла б хоча б написати «привіт», а я б сам почав розмову і вибачився.</p>
+
+        <p>Вчора я був дуже сумний не тому, що ти не розмовляєш зі мною, а тому, що ти неправильно мене розумієш, і я не можу чути з твоїх вуст такі погані слова про себе. Краще вже взагалі не спілкуватися, принаймні ти не будеш вважати мене поганим. Здається, та людина, яка мені подобалася, більше не існує, вона стала кимось іншим. <span class="highlight-name">Діано</span>, я тебе люблю і турбуюся про тебе, тому коли ти кажеш про мене погане, я не можу це слухати, і я не розумію, що мені робити. Мені стає тривожно, тому що я знаю, що не можу тебе переконати.</p>
+
+        <p>Будь-яку річ можна розглядати двома способами: перший — дивитися на неї позитивно, другий — негативно. Мені здається, що тепер ти почала неправильно мене розуміти. Я повторюю це знову і знову, тому що це правда: якщо ти будеш думати про мене погано, то хоч би скільки хорошого я не робив, я завжди буду виглядати поганим. Хто каже, що дружба може існувати без довіри? Я вважаю, що якщо немає довіри, то як може дружба добре тривати.</p>
+
+        <p><span class="highlight-name">Діано</span>, наша з тобою дружба — це про те, щоб бачити один одного щасливими, підтримувати один одного, розуміти один одного, жартувати і добре спілкуватися, для чого потрібна довіра. Вчора мені була потрібна твоя підтримка, тому що я був дуже сумний, але ти не відповіла. Якщо ти не хочеш спілкуватися, будь ласка, чітко відмов, скажи: «<span class="highlight-name">Аяз</span>, я не хочу з тобою ніяк спілкуватися». Так, мені буде дуже боляче, але один раз буде краще, ніж постійно мучитися. Краще один раз сильно засмутитися, поплакати чи посумувати за тобою.</p>
+
+        <p>Я не знаю, що зараз у тебе в голові, я не знаю, що ти думаєш про мене. Але будь ласка, скажи мені відкрито, що насправді відбувається. Я не буду більше розтягувати це повідомлення. Якщо й тепер не буде відповіді, я зрозумію, що ти не хочеш зі мною спілкуватися. І не турбуйся, після цього я ніколи тебе не потурбую. Взагалі я навіть не знаю, чи прочитаєш ти це повідомлення. Побачимо, що буде. Просто дбай про себе. Якщо ти вважаєш, що будеш щасливішою, розірвавши нашу дружбу, то добре, роби так, як тобі краще.</p>
+      </div>
+    </div>
+
+    <!-- Нижній колонтитул з декорацією -->
+    <div class="letter-footer">
+      <small>🌙 <span class="heart-pulse">❤️</span> Аяз</small>
+      <small>✨ 6 липня · 2026</small>
+    </div>
+  </div>
+
+  <!-- Невеличкий скрипт для плавного скролу при завантаженні (опційно) -->
+  <script>
+    (function() {
+      // Легке автоматичне прокручування до верху контенту (для зручності)
+      const scrollContainer = document.getElementById('scrollLetter');
+      if (scrollContainer) {
+        // невелика затримка, щоб анімація встигла з'явитись
+        setTimeout(() => {
+          scrollContainer.scrollTop = 0;
+        }, 100);
+      }
+
+      // Додаємо клас fade-in до кожного абзацу з невеликою затримкою (ефект послідовності)
+      const paragraphs = document.querySelectorAll('.message-content p');
+      paragraphs.forEach((p, index) => {
+        p.style.opacity = '0';
+        p.style.animation = `fadeUp 0.5s ease-out ${0.1 * (index + 1)}s both`;
+      });
+    })();
+  </script>
+</body>
+</html>
